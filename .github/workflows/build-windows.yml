@@ -32,15 +32,24 @@ jobs:
       - name: Build Tauri app
         run: npx tauri build
 
-      - name: Upload installer
+      - name: Upload NSIS installer
         uses: actions/upload-artifact@v4
         with:
-          name: msads-revision-windows
+          name: msads-revision-nsis
           path: src-tauri/target/release/bundle/nsis/*.exe
+          retention-days: 30
+
+      - name: Upload MSI installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: msads-revision-msi
+          path: src-tauri/target/release/bundle/msi/*.msi
           retention-days: 30
 
       - name: Upload to release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: src-tauri/target/release/bundle/nsis/*.exe
+          files: |
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/msi/*.msi
