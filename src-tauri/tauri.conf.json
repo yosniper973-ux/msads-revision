@@ -23,7 +23,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self'"
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src 'self' blob:; connect-src 'self'"
     }
   },
   "bundle": {
@@ -44,7 +44,7 @@
         "installerIcon": "icons/icon.ico"
       },
       "webviewInstallMode": {
-        "type": "downloadBootstrapper"
+        "type": "embedBootstrapper"
       }
     }
   },
