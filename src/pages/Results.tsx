@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Target, ArrowRight, Home as HomeIcon, Zap, ChevronDown, Info } from 'lucide-react';
+import { Trophy, Target, ArrowRight, Home as HomeIcon, Zap, ChevronDown, Info, FileDown, Mail } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Confetti from '../components/ui/Confetti';
 import { getRecommendation } from '../lib/scoring';
 import { allQuestions } from '../lib/questionUtils';
+import { downloadResultsPdf, shareResultsByEmail } from '../lib/pdfExport';
 import { MODULE_NAMES } from '../types';
 import type { GameResult } from '../types';
 import { BADGES } from '../data/badges';
@@ -25,6 +26,25 @@ export default function Results({ result, newBadges, onHome, onRetry }: Props) {
   const isExam = result.mode === 'exam';
   const [showDetails, setShowDetails] = useState(false);
   const isPerfect = result.score === result.total;
+  const profile = useProfileStore(s => s.getActiveProfile());
+
+  const handleExportPdf = () => {
+    try {
+      downloadResultsPdf({ result, profile });
+    } catch (err) {
+      console.error('Erreur export PDF :', err);
+      alert('Impossible de générer le PDF. Vérifie la console pour plus de détails.');
+    }
+  };
+
+  const handleShareEmail = () => {
+    try {
+      shareResultsByEmail({ result, profile });
+    } catch (err) {
+      console.error('Erreur partage mail :', err);
+      alert('Impossible d\'ouvrir le client mail. Vérifie la console pour plus de détails.');
+    }
+  };
 
   const moduleName = result.module === 'all' ? 'Tous modules' : MODULE_NAMES[result.module as number];
 
@@ -153,6 +173,16 @@ export default function Results({ result, newBadges, onHome, onRetry }: Props) {
           )}
         </div>
       )}
+
+      {/* Export & share */}
+      <div className="flex gap-3 justify-center max-w-md mx-auto mb-3">
+        <Button variant="secondary" onClick={handleExportPdf} className="flex-1">
+          <FileDown size={18} className="inline mr-2" /> Exporter PDF
+        </Button>
+        <Button variant="secondary" onClick={handleShareEmail} className="flex-1">
+          <Mail size={18} className="inline mr-2" /> Envoyer par mail
+        </Button>
+      </div>
 
       {/* Actions */}
       <div className="flex gap-3 justify-center max-w-md mx-auto">
