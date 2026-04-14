@@ -48,11 +48,5 @@
       }
     }
   },
-  "plugins": {
-    "fs": {
-      "scope": {
-        "allow": ["$APPDATA/**", "$APPDATA"]
-      }
-    }
-  }
+  "plugins": {}
 }
