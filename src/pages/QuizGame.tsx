@@ -13,7 +13,7 @@ import { MODULE_NAMES } from '../types';
 import type { AnswerDetail, GameResult } from '../types';
 
 const QUESTION_COUNT = 20;
-const TIME_PER_QUESTION = 15000;
+const TIME_PER_QUESTION = 35000;
 
 interface Props {
   module: number | 'all';

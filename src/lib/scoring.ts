@@ -6,7 +6,7 @@ export function calcQuizPoints(correct: boolean, timeRemainingMs: number, combo:
     return { points: 0, newCombo: 0 };
   }
   const basePoints = 100;
-  const timeBonus = Math.round((timeRemainingMs / 15000) * 50);
+  const timeBonus = Math.round((timeRemainingMs / 35000) * 50);
   const multiplier = combo >= 5 ? 3 : combo >= 2 ? 2 : 1;
   const points = (basePoints + timeBonus) * multiplier;
   return { points, newCombo: combo + 1 };

@@ -78,7 +78,7 @@ export default function Home({ onStartExam, onStartQuiz, onDashboard, onLeaderbo
             </div>
             <div className="text-left">
               <h3 className="text-lg font-bold">Mode Quiz</h3>
-              <p className="text-sm text-white/70">Chrono 15s - Tous modules</p>
+              <p className="text-sm text-white/70">Chrono 35s - Tous modules</p>
             </div>
           </div>
         </Card>
